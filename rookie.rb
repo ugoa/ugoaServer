@@ -1,7 +1,7 @@
-class HelloWorld
+class HiWorld
     def self.SayHello
         puts "Hello world."
     end
 end
 
-HelloWorld.SayHello
+HiWorld.SayHello
