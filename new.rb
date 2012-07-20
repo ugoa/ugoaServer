@@ -47,6 +47,14 @@ class SongList
     def [](index)
         @songs[index]
     end
+
+    def withTitle(title)
+        #for i in 0...@songs.length
+        #    return @songs[i] if title == @songs[i].name
+        #end
+        #return nil
+        @songs.find {|song| title == song.name }
+    end
 end
 
 class Logger
@@ -58,28 +66,28 @@ class Logger
     end
 end
 
-class TestSongList < Test::Unit::TestCase
-    def testDelete
-        list = SongList.new
-        s1 = Song.new('title1', 'artist1', 1)
-        s2 = Song.new('title2', 'artist2', 2)
-        s3 = Song.new('title3', 'artist3', 3)
-        s4 = Song.new('title4', 'artist4', 4)
-
-        list.append(s1).append(s2).append(s3).append(s4)
-
-        assert_equal(s1, list[0])
-        assert_equal(s3, list[2])
-#        assert_equal(s2, list[2])
-        assert_nil(list[9])
-
-        assert_equal(s1, list.deleteFirst)
-        assert_equal(s2, list.deleteFirst)
-        assert_equal(s3, list.deleteFirst)
-        assert_equal(s4, list.deleteFirst)
-        assert_nil(list.deleteLast)
-    end
-end
+#class TestSongList < Test::Unit::TestCase
+#    def testDelete
+#        list = SongList.new
+#        s1 = Song.new('title1', 'artist1', 1)
+#        s2 = Song.new('title2', 'artist2', 2)
+#        s3 = Song.new('title3', 'artist3', 3)
+#        s4 = Song.new('title4', 'artist4', 4)
+#
+#        list.append(s1).append(s2).append(s3).append(s4)
+#
+#        assert_equal(s1, list[0])
+#        assert_equal(s3, list[2])
+##        assert_equal(s2, list[2])
+#        assert_nil(list[9])
+#
+#        assert_equal(s1, list.deleteFirst)
+#        assert_equal(s2, list.deleteFirst)
+#        assert_equal(s3, list.deleteFirst)
+#        assert_equal(s4, list.deleteFirst)
+#        assert_nil(list.deleteLast)
+#    end
+#end
 #s1 = Song.new("Song1", "Artist1", 234)
 #s2 = Song.new("Song2", "Artist2", 236)
 #
@@ -104,3 +112,21 @@ end
 #
 #puts person1
 #puts person2
+#def three_times
+#    yield
+#    yield
+#    yield
+#end
+#
+#def fibonacci_up_to(max)
+#    i1, i2 = 1, 1
+#    while i1 <= max
+#        yield i1
+##        i1, i2 = i2, i1 + i2 
+#        temp = i1
+#        i1 = i2
+#        i2 = temp + i2
+#    end
+#end
+#fibonacci_up_to(1000) {|f| print f, " "}
+#three_times {puts "Hello"}
