@@ -1,4 +1,3 @@
-## Roman class
 class Roman
   MAX_ROMAN = 4999
 
