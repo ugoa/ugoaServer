@@ -1,5 +1,6 @@
 # For git branch test
 # v2 again fo git branch test
+# V3 use verbose comments when  git commit
 class Roman
   MAX_ROMAN = 4999
 
