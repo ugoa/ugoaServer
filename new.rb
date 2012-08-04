@@ -3,7 +3,7 @@ require 'test/unit'
 class Song
 	@@plays = 0
 
-    attr_reader :name, :artist, :duration
+        attr_reader :name, :artist, :duration
 
 	def initialize(name, artist, duration)
 		@name = name
