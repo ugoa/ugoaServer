@@ -12,21 +12,21 @@ lambda {
 
   Kernel.send :define_method, :each_setup do |&block|
     setups.each do |setup|
-      block.call setup
+      block.call(setup)
     end
   end
 
   Kernel.send :define_method, :each_event do |&block|
     events.each_pair do |name, event|
-      block.call name, event
+      block.call(name, event)
     end
   end
-
 }.call
 
 
 Dir.glob('*events.rb').each do |file|
   load file
+
   each_event do |name, event|
     env = Object.new
 
