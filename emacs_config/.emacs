@@ -153,7 +153,6 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
         (?\' _ "\'" >)
         (?\( _ ")" >)
         (?\[ _ "]" >)
-        (?\< _ ">" >)
         (?\{ _ "}" >)))
 
 (setq skeleton-pair t)
@@ -181,7 +180,7 @@ File suffix is used to determine what program to run."
             ("php" . "php")
             ("pl" . "perl")
             ("py" . "python")
-            ("rb" . "ruby")
+            ("rb" . "/home/david/.rvm/bin/ruby")
             ("js" . "js")
             ("sh" . "bash")
             ("ml" . "ocaml")
