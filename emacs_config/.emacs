@@ -237,4 +237,20 @@ File suffix is used to determine what program to run."
 (setenv "PATH"
         (concat
          (getenv "PATH") ; inherited from OS
-        ))
+        )
+)
+
+;; windows下透明
+(setq alpha-list '((100 100) (95 65) (85 55) (75 45) (65 35)))
+(defun loop-alpha ()
+  (interactive)
+  (let ((h (car alpha-list)))                ;; head value will set to
+    ((lambda (a ab)
+       (set-frame-parameter (selected-frame) 'alpha (list a ab))
+       (add-to-list 'default-frame-alist (cons 'alpha (list a ab)))
+       ) (car h) (car (cdr h)))
+    (setq alpha-list (cdr (append alpha-list (list h))))
+    )
+ )
+(global-set-key [(f9)] 'loop-alpha)
+
