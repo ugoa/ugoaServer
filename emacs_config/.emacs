@@ -8,36 +8,36 @@
  '(scroll-bar-mode (quote right))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
-                                        ;(custom-set-faces
+; (custom-set-faces
 ;; custom-set-faces was added by Custom.
 ;; If you edit it by hand, you could mess it up, so be careful.
 ;; Your init file should contain only one such instance.
 ;; If there is more than one, they won't work right.
-                                        ;  '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "unknown" :family "DejaVu Sans Mono")))))
+;  '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "unknown" :family "DejaVu Sans Mono")))))
 
 ;; show line numbers
 (global-linum-mode t)
 
-;; disable the startup screen
+;; 关闭启动画面
 (setq inhibit-startup-message t)
 
 ;; 允许emacs和外部其他程序的粘贴  
 (setq x-select-enable-clipboard t)
 
-;;设置home键指向buffer开头，end键指向buffer结尾
+;; 设置home键指向buffer开头，end键指向buffer结尾
 (global-set-key [home] 'beginning-of-buffer)  
 (global-set-key [end] 'end-of-buffer)  
 
-;;设置打开文件的缺省路径  
+;; 设置打开文件的缺省路径  
 (setq default-directory "~/WorkZone/")  
 
 ;; 改变 Emacs 固执的要你回答 yes 的行为。按 y 或空格键表示 yes，n 表示 no
 (fset 'yes-or-no-p 'y-or-n-p)  
 
-;;tab键为2个字符宽度 
+;; tab键为2个字符宽度 
 (setq default-tab-width 2)
 
-;;光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。  
+;; 光标靠近鼠标指针时，让鼠标指针自动让开，别挡住视线。  
 (setq mouse-avoidance-mode 'animate)  
 
 ;; 用space代替tab输入.
@@ -61,25 +61,25 @@
 (color-theme-deep-blue)
 
 ;; set frame size when emacs starts
-                                        ;(setq initial-frame-alist '((top . 0) (left . 0) (width . 90) (height . 38)))
+;(setq initial-frame-alist '((top . 0) (left . 0) (width . 90) (height . 38)))
 (setq initial-frame-alist '((width . 90) (height . 40)))
 (setq default-frame-alist '((width . 90) (height . 40)))
 
-;;set gotoline shortkey
+;; set gotoline shortkey
 (global-set-key [(control c) (control g)] 'goto-line)
 
-;;允许使用C-z作为命令前缀  
+;; 允许使用C-z作为命令前缀  
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
 (global-set-key "\C-z\C-z" 'repeat)
 
-;;用C-c i快速打开~/.emacs文件。  
+;; 用C-c i快速打开~/.emacs文件。  
 (defun open-init-file ( )  
   (interactive)  
   (find-file "~/.emacs"))
 (global-set-key "\C-ci" 'open-init-file)  
 
-;;系统剪贴板快捷键（C-c C-c复制，C-c C-v粘贴
+;; 系统剪贴板快捷键（C-c C-c复制，C-c C-v粘贴
 (global-set-key "\C-c\C-c" 'clipboard-kill-ring-save)
 (global-set-key "\C-c\C-v" 'clipboard-yank)
 
@@ -91,7 +91,7 @@
 (setq auto-save-mode nil)
 ;;don't keep tmp #filename# files
 (setq auto-save-default nil)
-;;不产生备份文件
+;; 不产生备份文件
 (setq make-backup-files nil)
 
 ;; 删除选中的部分
@@ -166,7 +166,7 @@ Replaces default behaviour of comment-dwim, when it inserts comment at the end o
 (global-set-key (kbd "\"") 'skeleton-pair-insert-maybe)
 (global-set-key (kbd "[")  'skeleton-pair-insert-maybe)
 
-;;一键运行任何脚本
+;; 一键运行任何脚本
 (defun run-current-file ()
   "Execute or compile the current file.
 For example, if the current buffer is the file x.pl,
@@ -222,7 +222,7 @@ File suffix is used to determine what program to run."
 (setq scroll-margin 3
       scroll-conservatively 10000)
 
-;;默认进入text-mode，而不是没有什么功能的fundamental-mode
+;; 默认进入text-mode，而不是没有什么功能的fundamental-mode
 (setq default-major-mode 'text-mode)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
