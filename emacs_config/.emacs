@@ -225,3 +225,16 @@ File suffix is used to determine what program to run."
 ;;默认进入text-mode，而不是没有什么功能的fundamental-mode
 (setq default-major-mode 'text-mode)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;; 将默认水平分割改为垂直分割
+(setq split-height-threshold nil)
+(setq split-width-threshold 0)
+
+; show env var named path
+(getenv "PATH")
+; example of setting env var named “path”
+; by prepending new paths to existing paths
+(setenv "PATH"
+        (concat
+         (getenv "PATH") ; inherited from OS
+        ))
