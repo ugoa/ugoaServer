@@ -8,7 +8,7 @@ class MyClass
   # class << self
   #   include MyModule
   # end
-  # or another way
+  # or another way to define a class method
   extend MyModule
 end
 
