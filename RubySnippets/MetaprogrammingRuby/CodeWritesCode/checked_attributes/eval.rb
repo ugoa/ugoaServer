@@ -1,19 +1,28 @@
 require "test/unit"
 
-class Class
-  def attr_checked(attribute, &validation)
-    define_method "#{attribute}=" do |value|
-      raise 'Invalid attribute' unless yield(value)
-      instance_variable_set("@#{attribute}", value)
-    end
+module CheckedAttributes
+  def self.included(base)
+    base.extend ClassMethods
+  end
 
-    define_method attribute do
-      instance_variable_get "@#{attribute}"
+  module ClassMethods
+    def attr_checked(attribute, &validation)
+      define_method "#{attribute}=" do |value|
+        raise 'Invalid attribute' unless yield(value)
+        instance_variable_set("@#{attribute}", value)
+      end
+
+      define_method attribute do
+        instance_variable_get "@#{attribute}"
+      end
     end
   end
 end
 
+
 class Person
+  include CheckedAttributes
+  
   attr_checked :age do |v|
     v >= 18
   end
@@ -35,5 +44,3 @@ class TestCheckedAttributes < Test::Unit::TestCase
     end
   end
 end
-
-
