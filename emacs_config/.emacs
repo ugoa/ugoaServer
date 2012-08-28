@@ -254,3 +254,70 @@ File suffix is used to determine what program to run."
  )
 (global-set-key [(f9)] 'loop-alpha)
 
+;; 自动关键词缩进, 比如'end' in ruby
+;; (setq-default electric-indent-mode t)
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (set (make-local-variable 'electric-indent-chars)
+                 (append '(?d) electric-indent-chars))))
+
+(global-set-key "\C-cr" (quote eval-buffer))
+
+;; 使用%来匹配括号跳转, 类似于vi
+(global-set-key "%" 'match-paren)
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
+
+;; go-to-char,快速到达指定的字符，前缀C-c a， 类似于vi的f命令
+(defun wy-go-to-char (n char)
+  "Move forward to Nth occurence of CHAR.
+   Typing `wy-go-to-char-key' again will move forwad to the next Nth
+   occurence of CHAR."
+  (interactive "p\ncGo to char: ")
+  (search-forward (string char) nil nil n)
+  (while (char-equal (read-char)
+                     char)
+    (search-forward (string char) nil nil n))
+  (setq unread-command-events (list last-input-event)))
+(define-key global-map (kbd "C-c a") 'wy-go-to-char)
+
+;; tabbar.el配置
+(require 'tabbar)
+(tabbar-mode)
+(global-set-key (kbd "") 'tabbar-backward-group)
+(global-set-key (kbd "") 'tabbar-forward-group)
+(global-set-key (kbd "") 'tabbar-backward)
+(global-set-key (kbd "") 'tabbar-forward)
+;;;; 设置tabbar外观
+;; 设置默认主题: 字体, 背景和前景颜色，大小
+(set-face-attribute 'tabbar-default nil
+                    :family "Vera Sans YuanTi Mono"
+                    :background "gray80"
+                    :foreground "gray30"
+                    :height 1.0
+                    )
+;; 设置左边按钮外观：外框框边大小和颜色
+(set-face-attribute 'tabbar-button nil
+                    :inherit 'tabbar-default
+                    :box '(:line-width 1 :color "gray30")
+                    )
+;; 设置当前tab外观：颜色，字体，外框大小和颜色
+(set-face-attribute 'tabbar-selected nil
+                    :inherit 'tabbar-default
+                    :foreground "DarkGreen"
+                    :background "LightGoldenrod"
+                    :box '(:line-width 2 :color "DarkGoldenrod")
+                    ;; :overline "black"
+                    ;; :underline "black"
+                    :weight 'bold
+                    )
+;; 设置非当前tab外观：外框大小和颜色
+(set-face-attribute 'tabbar-unselected nil
+                    :inherit 'tabbar-default
+                    :box '(:line-width 2 :color "gray70")
+                    )
+
