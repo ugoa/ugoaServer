@@ -71,7 +71,12 @@
 ;; 允许使用C-z作为命令前缀  
 (define-prefix-command 'ctl-z-map)
 (global-set-key (kbd "C-z") 'ctl-z-map)
-(global-set-key "\C-z\C-z" 'repeat)
+(global-set-key "\C-z\C-z" 'undo)
+
+;; 允许使用C-.作为命令前缀
+(define-prefix-command 'ctl-dot-map)
+(global-set-key (kbd "C-.") 'ctl-dot-map)
+(global-set-key (kbd "C-. C-.") 'repeat)
 
 ;; 用C-c i快速打开~/.emacs文件。  
 (defun open-init-file ( )  
@@ -239,7 +244,7 @@ File suffix is used to determine what program to run."
         )
 )
 
-;; windows下透明
+;; windows下透明, also work for linux, haha!
 (setq alpha-list '((100 100) (95 65) (85 55) (75 45) (65 35)))
 (defun loop-alpha ()
   (interactive)
@@ -253,12 +258,12 @@ File suffix is used to determine what program to run."
  )
 (global-set-key [(f9)] 'loop-alpha)
 
-;; 自动关键词缩进, 比如'end' in ruby
+;; 自动关键词缩进, 比如'end' in ruby only, work with emacs 24
 ;; (setq-default electric-indent-mode t)
-(add-hook 'ruby-mode-hook
-          (lambda ()
-            (set (make-local-variable 'electric-indent-chars)
-                 (append '(?d) electric-indent-chars))))
+; (add-hook 'ruby-mode-hook
+;           (lambda ()
+;             (set (make-local-variable 'electric-indent-chars)
+;                  (append '(?d) electric-indent-chars))))
 
 (global-set-key "\C-cr" (quote eval-buffer))
 
@@ -319,4 +324,70 @@ File suffix is used to determine what program to run."
                     :inherit 'tabbar-default
                     :box '(:line-width 2 :color "gray70")
                     )
+
+;; ;; rails with emacs
+;; (add-to-list 'load-path "~/.emacs.d/rails-reloaded")
+;; (setq load-path (cons (expand-file-name "~/.emacs.d/rails-reloaded") load-path))
+;; (require 'rails-autoload)
+
+;; ecb和cedet的配置，主要用于rails
+(load-file "~/.emacs.d/cedet/common/cedet.el")
+;; Enable EDE (Project Management) features
+(global-ede-mode 1)
+;; * This enables some tools useful for coding, such as summary mode
+;;   imenu support, and the semantic navigator
+(semantic-load-enable-code-helpers)
+
+;;  rinari for rails
+(add-to-list 'load-path "~/.emacs.d/elpa/rinari-2.1")
+(add-to-list 'load-path "~/.emacs.d/elpa/ruby-compilation-0.7")
+(add-to-list 'load-path "~/.emacs.d/elpa/jump-2.0")
+(add-to-list 'load-path "~/.emacs.d/elpa/findr-0.7")
+(add-to-list 'load-path "~/.emacs.d/elpa/inflections-1.0")
+(require 'rinari)
+
+(add-to-list 'load-path "~/.emacs.d/ecb")
+(require 'ecb)
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+;; 全屏
+(defun my-fullscreen ()
+  (interactive)
+  (x-send-client-message
+   nil 0 nil "_NET_WM_STATE" 32
+   '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+(global-set-key [f11] 'my-fullscreen)
+
+;; 最大化
+(defun my-maximized ()
+  (interactive)
+  (x-send-client-message
+   nil 0 nil "_NET_WM_STATE" 32
+   '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
+  (x-send-client-message
+   nil 0 nil "_NET_WM_STATE" 32
+   '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0)))
+;启动时最大化
+(my-maximized)
+
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+
+;; emacs 包管理程序
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 
